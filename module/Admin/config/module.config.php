@@ -2,6 +2,7 @@
 
 namespace Admin;
 
+use Admin\Controller\Factory\RoleControllerFactory;
 use Admin\Controller\Factory\UserControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -44,6 +45,34 @@ return [
                                 'action' => 'index'
                             ]
                         ]
+                    ],
+                    'role' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/role[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                                'id' => '[1-9]\d*'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\RoleController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'resource' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/resource[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                                'id' => '[1-9]\d*'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ResourceController::class,
+                                'action' => 'index'
+                            ]
+                        ]
                     ]
                 ]
             ]
@@ -53,13 +82,19 @@ return [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\AuthController::class => InvokableFactory::class,
-            Controller\UserController::class => UserControllerFactory::class
+            Controller\UserController::class => UserControllerFactory::class,
+            Controller\RoleController::class => RoleControllerFactory::class,
+            Controller\ResourceController::class => Controller\Factory\ResourceControllerFactory::class
         ]
     ],
     'service_manager' => [
         'factories' => [
             Service\UserService::class => Service\Factory\UserServiceFactory::class,
             Repository\UserTableGateway::class => Repository\Factory\UserTableGatewayFactory::class,
+            Service\RoleService::class => Service\Factory\RoleServiceFactory::class,
+            Repository\RoleTableGateway::class => Repository\Factory\RoleTableGatewayFactory::class,
+            Service\ResourceService::class => Service\Factory\ResourceServiceFactory::class,
+            Repository\ResourceTableGateway::class => Repository\Factory\ResourceTableGatewayFactory::class
         ]
     ],
     'view_manager' => [

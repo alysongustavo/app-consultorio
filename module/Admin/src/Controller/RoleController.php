@@ -2,38 +2,38 @@
 /**
  * Created by PhpStorm.
  * User: Alyson
- * Date: 23/07/2019
- * Time: 21:51
+ * Date: 24/07/2019
+ * Time: 21:42
  */
 
 namespace Admin\Controller;
 
 
+use Admin\Service\RoleService;
 use Admin\Service\ServiceException;
-use Admin\Service\UserService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class UserController extends AbstractActionController
+class RoleController extends AbstractActionController
 {
 
     /**
-     * @var UserService
+     * @var RoleService
      */
-    private $userService;
+    private $roleService;
 
-    public function __construct(UserService $userService)
+    public function __construct(RoleService $roleService)
     {
-        $this->userService = $userService;
+        $this->roleService = $roleService;
     }
 
     public function indexAction()
     {
 
-        $users = $this->userService->findAllUser();
+        $roles = $this->roleService->findAllRoles();
 
         return new ViewModel([
-            'users' => $users
+            'roles' => $roles
         ]);
     }
 
@@ -44,17 +44,17 @@ class UserController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id');
 
         if($id == 0){
-            return $this->redirect()->toRoute('admin/user');
+            return $this->redirect()->toRoute('admin/role');
         }
 
         try{
-            $user = $this->userService->findUser($id);
+            $role = $this->roleService->findRole($id);
         }catch (ServiceException $exception){
             $messageError = $exception->getMessage();
         }
 
         return new ViewModel([
-            'user' => $user,
+            'role' => $role,
             'messageError' => $messageError
         ]);
     }

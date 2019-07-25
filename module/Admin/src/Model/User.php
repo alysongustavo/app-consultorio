@@ -27,6 +27,8 @@ class User
 
     private $pwdResetTokenCreationDate;
 
+    private $rolesString;
+
     private $roles = [];
 
     // Info role
@@ -180,6 +182,30 @@ class User
     public function setPwdResetTokenCreationDate($pwdResetTokenCreationDate)
     {
         $this->pwdResetTokenCreationDate = $pwdResetTokenCreationDate;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRolesString()
+    {
+        return $this->rolesString;
+    }
+
+    /**
+     * @param mixed $rolesString
+     * @return User
+     */
+    public function setRolesString($rolesString)
+    {
+
+        if(!empty($this->rolesString)){
+            $this->rolesString .=  ", " . $rolesString;
+        }else{
+            $this->rolesString .=   $rolesString;
+        }
+
         return $this;
     }
 

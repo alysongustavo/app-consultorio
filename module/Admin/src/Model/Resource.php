@@ -13,6 +13,8 @@ class Resource
 {
     private $id;
 
+    private $module;
+
     private $controller;
 
     private $action;
@@ -36,6 +38,24 @@ class Resource
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    /**
+     * @param mixed $module
+     * @return Resource
+     */
+    public function setModule($module)
+    {
+        $this->module = $module;
         return $this;
     }
 
@@ -114,6 +134,7 @@ class Resource
     public function exchangeArray(array $data)
     {
         $this->id= !empty($data['id']) ? $data['id'] : null;
+        $this->module= !empty($data['module']) ? $data['module'] : null;
         $this->controller= !empty($data['controller']) ? $data['controller'] : null;
         $this->action= !empty($data['action']) ? $data['action'] : null;
         $this->description= !empty($data['description']) ? $data['description'] : null;

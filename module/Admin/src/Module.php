@@ -36,6 +36,7 @@ class Module implements ConfigProviderInterface, InitProviderInterface
           $controller = $mvcEvent->getTarget();
 
           $controllerClass = get_class($controller);
+
           $moduleNamespace = substr($controllerClass, 0, strpos($controllerClass, '\\'));
 
           // Switch layout only for controllers belonging to our module.

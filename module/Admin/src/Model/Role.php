@@ -12,7 +12,7 @@ namespace Admin\Model;
 class Role
 {
 
-    private $role_id;
+    private $id;
 
     private $name;
 
@@ -23,18 +23,18 @@ class Role
     /**
      * @return mixed
      */
-    public function getRoleId()
+    public function getId()
     {
-        return $this->role_id;
+        return $this->id;
     }
 
     /**
-     * @param mixed $role_id
+     * @param mixed $id
      * @return Role
      */
-    public function setRoleId($role_id)
+    public function setId($id)
     {
-        $this->role_id = $role_id;
+        $this->id = $id;
         return $this;
     }
 
@@ -94,7 +94,7 @@ class Role
 
     public function exchangeArray(array $data)
     {
-        $this->role_id = !empty($data['id']) ? $data['id'] : null;
+        $this->id = !empty($data['id']) ? $data['id'] : null;
         $this->name= !empty($data['name']) ? $data['name'] : null;
         $this->description= !empty($data['description']) ? $data['description'] : null;
         $this->dateCreated= !empty($data['dateCreated']) ? $data['dateCreated'] : null;
